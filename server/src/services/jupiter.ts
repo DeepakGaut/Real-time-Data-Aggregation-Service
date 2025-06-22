@@ -54,7 +54,6 @@ export class JupiterService {
         const ids = tokenAddresses.join(',');
         const response = await this.client.get(`/v4/price`, {
           params: { ids },
-          retry: { count: 0, maxRetries: 3 }
         });
 
         const prices = new Map<string, number>();

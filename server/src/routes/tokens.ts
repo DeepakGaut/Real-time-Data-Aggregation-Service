@@ -265,7 +265,7 @@ router.use((error: any, req: express.Request, res: express.Response, next: expre
       details: error.errors.map(err => ({
         field: err.path.join('.'),
         message: err.message,
-        received: err.received
+        received: (err as any).received
       }))
     });
   }

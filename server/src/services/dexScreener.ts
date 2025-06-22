@@ -36,7 +36,6 @@ export class DexScreenerService {
       try {
         const response = await this.client.get(`/latest/dex/search`, {
           params: { q: query },
-          retry: { count: 0, maxRetries: 3 }
         });
 
         if (!response.data || !response.data.pairs) {
@@ -80,9 +79,7 @@ export class DexScreenerService {
     }
 
     return retryWithBackoff(async () => {
-      try {
-        const response = await this.client.get(`/latest/dex/tokens/${tokenAddress}`, {
-          retry: { count: 0, maxRetries: 3 }
+      try {        const response = await this.client.get(`/latest/dex/tokens/${tokenAddress}`, {
         });
 
         if (!response.data || !response.data.pairs || response.data.pairs.length === 0) {

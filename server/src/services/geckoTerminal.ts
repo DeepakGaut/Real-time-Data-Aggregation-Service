@@ -28,7 +28,6 @@ export class GeckoTerminalService {
             page,
             limit: Math.min(limit, 100) // GeckoTerminal has a max limit
           },
-          retry: { count: 0, maxRetries: 3 }
         });
 
         if (!response.data || !response.data.data) {
@@ -58,7 +57,6 @@ export class GeckoTerminalService {
     return retryWithBackoff(async () => {
       try {
         const response = await this.client.get(`/api/v2/networks/solana/tokens/${tokenAddress}`, {
-          retry: { count: 0, maxRetries: 3 }
         });
 
         if (!response.data || !response.data.data) {
