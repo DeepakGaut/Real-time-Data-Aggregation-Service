@@ -46,7 +46,7 @@ export class WebSocketService {
   }
 
   private setupEventHandlers(): void {
-    this.io.on('connection', (socket) => {
+    this.io.on('connection', (socket:any ) => {
       console.log(`Client connected: ${socket.id}`);
       this.connectedClients.add(socket.id);
 

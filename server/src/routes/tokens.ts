@@ -1,3 +1,4 @@
+import { Request, Response, NextFunction } from 'express';
 import express from 'express';
 import { z } from 'zod';
 import { DexAggregatorService } from '../services/dexAggregator.js';
@@ -113,7 +114,7 @@ router.get('/trending', async (req, res, next) => {
 });
 
 // GET /api/tokens/volume-leaders - Get tokens with highest volume
-router.get('/volume-leaders', async (req, res, next) => {
+router.get('/volume-leaders', async (req: Request, res: Response, next: NextFunction) => {
   try {
     const volumeFilters: FilterParams = {
       sortBy: 'volume',
@@ -134,7 +135,7 @@ router.get('/volume-leaders', async (req, res, next) => {
 });
 
 // GET /api/tokens/:address - Get specific token by address
-router.get('/:address', async (req, res, next) => {
+router.get('/:address', async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { address } = tokenAddressSchema.parse(req.params);
     
@@ -158,7 +159,7 @@ router.get('/:address', async (req, res, next) => {
 });
 
 // GET /api/tokens/search/:query - Search tokens by name or symbol with enhanced filtering
-router.get('/search/:query', async (req, res, next) => {
+router.get('/search/:query', async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { query } = searchQuerySchema.parse(req.params);
     const validatedQuery = getTokensSchema.parse(req.query);
@@ -221,7 +222,7 @@ router.get('/search/:query', async (req, res, next) => {
 });
 
 // GET /api/tokens/stats/summary - Get aggregated statistics
-router.get('/stats/summary', async (req, res, next) => {
+router.get('/stats/summary', async (req: Request, res: Response, next: NextFunction) => {
   try {
     const result = await aggregator.getTokens({ limit: 100 });
     
