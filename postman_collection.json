@@ -1,0 +1,311 @@
+{
+  "info": {
+    "name": "MemeFlow API Collection",
+    "description": "Complete API collection for MemeFlow real-time meme coin aggregation service",
+    "version": "1.0.0",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3001",
+      "type": "string"
+    },
+    {
+      "key": "apiUrl",
+      "value": "{{baseUrl}}/api",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/health",
+          "host": ["{{baseUrl}}"],
+          "path": ["health"]
+        },
+        "description": "Check if the server is running and healthy"
+      },
+      "response": []
+    },
+    {
+      "name": "Get All Tokens",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{apiUrl}}/tokens?limit=20&sortBy=volume&sortOrder=desc&timeframe=1h",
+          "host": ["{{apiUrl}}"],
+          "path": ["tokens"],
+          "query": [
+            {
+              "key": "limit",
+              "value": "20",
+              "description": "Number of tokens to return (1-100)"
+            },
+            {
+              "key": "sortBy",
+              "value": "volume",
+              "description": "Sort by: volume, price_change, market_cap, liquidity"
+            },
+            {
+              "key": "sortOrder",
+              "value": "desc",
+              "description": "Sort order: asc, desc"
+            },
+            {
+              "key": "timeframe",
+              "value": "1h",
+              "description": "Timeframe: 1h, 24h, 7d"
+            }
+          ]
+        },
+        "description": "Get paginated list of tokens with filtering and sorting"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Tokens with Filters",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{apiUrl}}/tokens?minVolume=100&minMarketCap=1000&sortBy=price_change&sortOrder=desc&limit=10",
+          "host": ["{{apiUrl}}"],
+          "path": ["tokens"],
+          "query": [
+            {
+              "key": "minVolume",
+              "value": "100",
+              "description": "Minimum volume in SOL"
+            },
+            {
+              "key": "minMarketCap",
+              "value": "1000",
+              "description": "Minimum market cap in SOL"
+            },
+            {
+              "key": "sortBy",
+              "value": "price_change",
+              "description": "Sort by price change"
+            },
+            {
+              "key": "sortOrder",
+              "value": "desc",
+              "description": "Descending order"
+            },
+            {
+              "key": "limit",
+              "value": "10",
+              "description": "Limit results"
+            }
+          ]
+        },
+        "description": "Get tokens with advanced filtering options"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Tokens with Pagination",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{apiUrl}}/tokens?limit=5&cursor={{nextCursor}}",
+          "host": ["{{apiUrl}}"],
+          "path": ["tokens"],
+          "query": [
+            {
+              "key": "limit",
+              "value": "5",
+              "description": "Small limit to test pagination"
+            },
+            {
+              "key": "cursor",
+              "value": "{{nextCursor}}",
+              "description": "Cursor from previous response"
+            }
+          ]
+        },
+        "description": "Test cursor-based pagination"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Token by Address",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{apiUrl}}/tokens/576P1t7XsRL4ZVj38LV2eYWxXRPguBADA8BxcNz1xo8y",
+          "host": ["{{apiUrl}}"],
+          "path": ["tokens", "576P1t7XsRL4ZVj38LV2eYWxXRPguBADA8BxcNz1xo8y"]
+        },
+        "description": "Get specific token by Solana address"
+      },
+      "response": []
+    },
+    {
+      "name": "Search Tokens",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{apiUrl}}/tokens/search/BONK",
+          "host": ["{{apiUrl}}"],
+          "path": ["tokens", "search", "BONK"]
+        },
+        "description": "Search tokens by name, symbol, or address"
+      },
+      "response": []
+    },
+    {
+      "name": "Search Tokens with Filters",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{apiUrl}}/tokens/search/token?sortBy=volume&sortOrder=desc&limit=10",
+          "host": ["{{apiUrl}}"],
+          "path": ["tokens", "search", "token"],
+          "query": [
+            {
+              "key": "sortBy",
+              "value": "volume",
+              "description": "Sort search results by volume"
+            },
+            {
+              "key": "sortOrder",
+              "value": "desc",
+              "description": "Descending order"
+            },
+            {
+              "key": "limit",
+              "value": "10",
+              "description": "Limit search results"
+            }
+          ]
+        },
+        "description": "Search tokens with additional filtering"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Trending Tokens",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{apiUrl}}/tokens/trending",
+          "host": ["{{apiUrl}}"],
+          "path": ["tokens", "trending"]
+        },
+        "description": "Get trending tokens with positive price changes"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Volume Leaders",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{apiUrl}}/tokens/volume-leaders",
+          "host": ["{{apiUrl}}"],
+          "path": ["tokens", "volume-leaders"]
+        },
+        "description": "Get tokens with highest trading volume"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Market Statistics",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{apiUrl}}/tokens/stats/summary",
+          "host": ["{{apiUrl}}"],
+          "path": ["tokens", "stats", "summary"]
+        },
+        "description": "Get aggregated market statistics and analytics"
+      },
+      "response": []
+    },
+    {
+      "name": "Test Invalid Parameters",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{apiUrl}}/tokens?sortBy=invalid&limit=1000",
+          "host": ["{{apiUrl}}"],
+          "path": ["tokens"],
+          "query": [
+            {
+              "key": "sortBy",
+              "value": "invalid",
+              "description": "Invalid sort parameter"
+            },
+            {
+              "key": "limit",
+              "value": "1000",
+              "description": "Exceeds maximum limit"
+            }
+          ]
+        },
+        "description": "Test API validation with invalid parameters"
+      },
+      "response": []
+    },
+    {
+      "name": "Test Rate Limiting",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{apiUrl}}/tokens?limit=1",
+          "host": ["{{apiUrl}}"],
+          "path": ["tokens"],
+          "query": [
+            {
+              "key": "limit",
+              "value": "1",
+              "description": "Small request for rate limit testing"
+            }
+          ]
+        },
+        "description": "Test rate limiting by making rapid requests"
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "// Global test script for all requests",
+          "pm.test('Response time is less than 5000ms', function () {",
+          "    pm.expect(pm.response.responseTime).to.be.below(5000);",
+          "});",
+          "",
+          "pm.test('Response has success field', function () {",
+          "    const jsonData = pm.response.json();",
+          "    pm.expect(jsonData).to.have.property('success');",
+          "});",
+          "",
+          "// Store cursor for pagination testing",
+          "if (pm.response.json().pagination && pm.response.json().pagination.nextCursor) {",
+          "    pm.environment.set('nextCursor', pm.response.json().pagination.nextCursor);",
+          "}"
+        ]
+      }
+    }
+  ]
+}
